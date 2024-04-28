@@ -76,3 +76,4 @@ C:\Users\Ashley\source\repos\Microcreditos\Microcreditos\obj\Debug\net7.0\refint
 C:\Users\Ashley\source\repos\Microcreditos\Microcreditos\obj\Debug\net7.0\Microcreditos.pdb
 C:\Users\Ashley\source\repos\Microcreditos\Microcreditos\obj\Debug\net7.0\Microcreditos.genruntimeconfig.cache
 C:\Users\Ashley\source\repos\Microcreditos\Microcreditos\obj\Debug\net7.0\ref\Microcreditos.dll
+C:\Users\Ashley\source\repos\Microcreditos\Microcreditos\obj\Debug\net7.0\Microcreditos.sourcelink.json
