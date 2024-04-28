@@ -1,0 +1,14 @@
+﻿using Microcreditos.Entities;
+
+namespace Microcreditos.Repository.IRepository
+{
+    public interface IPagoRepository
+    {
+        Task<IEnumerable<Pago>> GetPagos();
+        Task<Pago> GetPagoById(int id);
+        Task<Pago> CreatePago(Pago pago);
+        Task<bool> UpdatePago(Pago pago);
+        Task<bool> DeletePago(int id);
+        Task<bool> SaveChanges();
+    }
+}
