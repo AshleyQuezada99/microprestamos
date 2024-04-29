@@ -49,6 +49,18 @@ namespace Microcreditos.Repository
             return result;
         }
 
+        public async Task<IEnumerable<Pago>> GetPagosByPrestamoId(int prestamoId)
+        {
+            var result = await _dbContext.Pago.Where(x => x.PrestamoId == prestamoId).ToListAsync();
+
+            if (result.Count == 0)
+            {
+                throw new ArgumentException("No se encontraron pagos con el PrestamoId especificado");
+            }
+
+            return result;
+        }
+
         public async Task<IEnumerable<Pago>> GetPagos()
         {
             return await _dbContext.Pago.ToListAsync();

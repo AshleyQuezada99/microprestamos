@@ -1,0 +1,42 @@
+<main class="main d-flex justify-content-center align-items-center mt-5">
+    <div class="content text-center">
+        <h1>{{ title }}</h1>
+        <!-- Alerta de Bootstrap -->
+        <div *ngIf="showAlert" class="alert" [ngClass]="'alert-' + alertType" role="alert">
+            {{ alertMessage }}
+        </div>
+        <form [formGroup]="pagoForm" (ngSubmit)="onSubmit()">
+            <!-- Monto -->
+            <div class="mb-3">
+                <label for="monto" class="form-label">Monto</label>
+                <input type="number" class="form-control" id="monto" formControlName="monto">
+
+            </div>
+
+            <!-- Periodo de Pago -->
+            <div class="mb-3">
+                <label for="periodoPago" class="form-label">Periodo de Pago</label>
+                <input type="text" class="form-control" id="periodoPago" formControlName="periodoPago">
+
+            </div>
+            <!-- Fecha de Pago -->
+            <div class="mb-3">
+                <label for="fechaPago" class="form-label">Fecha de Pago</label>
+                <input type="datetime-local" class="form-control" id="fechaPago" formControlName="fechaPago">
+
+            </div>
+            <!-- En Tiempo -->
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="enTiempo" formControlName="enTiempo">
+                <label class="form-check-label" for="enTiempo">En Tiempo</label>
+            </div>
+            <!-- Prestamo ID -->
+            <div class="mb-3">
+                <label for="prestamoId" class="form-label">ID del Prestamo</label>
+                <input type="text" class="form-control" id="prestamoId" formControlName="prestamoId" readonly>
+
+            </div>
+            <button type="submit" class="btn btn-primary">Actualizar Pago</button>
+        </form>
+    </div>
+</main>

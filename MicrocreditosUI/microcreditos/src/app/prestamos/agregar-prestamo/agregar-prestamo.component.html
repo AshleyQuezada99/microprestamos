@@ -1,0 +1,103 @@
+<main class="main d-flex justify-content-center align-items-center mt-5">
+    <div class="content text-center">
+        <h1>{{ title }}</h1>
+        <!-- Alerta de Bootstrap -->
+        <div *ngIf="showAlert" class="alert" [ngClass]="'alert-' + alertType" role="alert">
+            {{ alertMessage }}
+        </div>
+        <form [formGroup]="prestamoForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <!-- CI -->
+                <div class="col-md-4 mb-3">
+                    <label for="ci" class="form-label">CI</label>
+                    <input type="text" class="form-control" id="ci" formControlName="ci">
+                    <div *ngIf="prestamoForm.get('ci')?.invalid && prestamoForm.get('ci')?.touched" class="text-danger">
+                        CI es requerido
+                    </div>
+                </div>
+                <!-- Nombre -->
+                <div class="col-md-4 mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" formControlName="nombre">
+                    <div *ngIf="prestamoForm.get('nombre')?.invalid && prestamoForm.get('nombre')?.touched"
+                        class="text-danger">
+                        Nombre es requerido
+                    </div>
+                </div>
+                <!-- Apellido Paterno -->
+                <div class="col-md-4 mb-3">
+                    <label for="apellidoPaterno" class="form-label">Apellido Paterno</label>
+                    <input type="text" class="form-control" id="apellidoPaterno" formControlName="apellidoPaterno">
+                    <div *ngIf="prestamoForm.get('apellidoPaterno')?.invalid && prestamoForm.get('apellidoPaterno')?.touched"
+                        class="text-danger">
+                        Apellido Paterno es requerido
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- Apellido Materno -->
+                <div class="col-md-4 mb-3">
+                    <label for="apellidoMaterno" class="form-label">Apellido Materno</label>
+                    <input type="text" class="form-control" id="apellidoMaterno" formControlName="apellidoMaterno">
+                    <div *ngIf="prestamoForm.get('apellidoMaterno')?.invalid && prestamoForm.get('apellidoMaterno')?.touched"
+                        class="text-danger">
+                        Apellido Materno es requerido
+                    </div>
+                </div>
+                <!-- Cantidad Prestada -->
+                <div class="col-md-4 mb-3">
+                    <label for="cantidadPrestada" class="form-label">Cantidad Prestada</label>
+                    <input type="number" class="form-control" id="cantidadPrestada" formControlName="cantidadPrestada">
+                    <div *ngIf="prestamoForm.get('cantidadPrestada')?.invalid && prestamoForm.get('cantidadPrestada')?.touched"
+                        class="text-danger">
+                        Cantidad Prestada es requerida
+                    </div>
+                </div>
+                <!-- Teléfono -->
+                <div class="col-md-4 mb-3">
+                    <label for="telefono" class="form-label">Teléfono</label>
+                    <input type="tel" class="form-control" id="telefono" formControlName="telefono"
+                        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Email -->
+                <div class="col-md-4 mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" formControlName="email">
+                    <div *ngIf="prestamoForm.get('email')?.invalid && prestamoForm.get('email')?.touched"
+                        class="text-danger">
+                        Email es requerido y debe tener un formato válido
+                    </div>
+                </div>
+                <!-- Fecha de Prestamo -->
+                <div class="col-md-4 mb-3">
+                    <label for="fechaPrestamo" class="form-label">Fecha de Prestamo</label>
+                    <input type="datetime-local" class="form-control" id="fechaPrestamo"
+                        formControlName="fechaPrestamo">
+                </div>
+                <!-- Día de Cobro -->
+                <div class="col-md-4 mb-3">
+                    <label for="diaCobro" class="form-label">Día de Cobro</label>
+                    <input type="number" class="form-control" id="diaCobro" formControlName="diaCobro">
+                </div>
+            </div>
+            <div class="row">
+                <!-- Meses de Prestamo -->
+                <div class="col-md-4 mb-3">
+                    <label for="mesesPrestamo" class="form-label">Meses de Prestamo</label>
+                    <input type="number" class="form-control" id="mesesPrestamo" formControlName="mesesPrestamo">
+                </div>
+                <!-- Intereses -->
+                <div class="col-md-4 mb-3">
+                    <label for="intereses" class="form-label">Intereses</label>
+                    <input type="number" class="form-control" id="intereses" formControlName="intereses">
+                </div>
+            </div>
+            <div>{{ prestamoForm.invalid }}</div>
+            <button type="submit" class="btn btn-primary">Agregar</button>
+        </form>
+
+    </div>
+</main>

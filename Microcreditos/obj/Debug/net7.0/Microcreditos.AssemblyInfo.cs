@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Microcreditos")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+670db6d8abfb496f91a2ca678d659fa794124272")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bfb195a16d47474c81a517b924ad1a144f511fb6")]
 [assembly: System.Reflection.AssemblyProductAttribute("Microcreditos")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Microcreditos")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

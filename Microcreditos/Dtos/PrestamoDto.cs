@@ -5,6 +5,8 @@ namespace Microcreditos.Dtos
 {
     public class PrestamoDto
     {
+        //Se optó por agregar el Id al dto para poder hacer la relación de filtrado a los pagos más eficiente
+        public int Id { get; set; }
         public string CI { get; set; }
         public required string Nombre { get; set; }
         public string ApellidoMaterno { get; set; }

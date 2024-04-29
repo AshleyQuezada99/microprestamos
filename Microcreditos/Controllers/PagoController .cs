@@ -37,6 +37,15 @@ namespace Microcreditos.Controllers
 
         }
 
+        [HttpGet("ByPrestamo/{prestamoId}")]
+        public async Task<ActionResult<IEnumerable<PagoDto>>> GetPagosByPrestamoId(int prestamoId)
+        {
+            var pagos = await _repository.GetPagosByPrestamoId(prestamoId);
+
+            return Ok(_mapper.Map<IEnumerable<PagoDto>>(pagos));
+
+        }
+
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeletePago(int id)
         {

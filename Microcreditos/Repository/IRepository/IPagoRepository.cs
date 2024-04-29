@@ -6,6 +6,7 @@ namespace Microcreditos.Repository.IRepository
     {
         Task<IEnumerable<Pago>> GetPagos();
         Task<Pago> GetPagoById(int id);
+        Task<IEnumerable<Pago>> GetPagosByPrestamoId(int prestamoId);
         Task<Pago> CreatePago(Pago pago);
         Task<bool> UpdatePago(Pago pago);
         Task<bool> DeletePago(int id);
