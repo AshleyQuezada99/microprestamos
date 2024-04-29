@@ -6,11 +6,34 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Microcreditos.Migrations
 {
     /// <inheritdoc />
-    public partial class pago : Migration
+    public partial class microcreditos : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Prestamo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CI = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
+                    Nombre = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    ApellidoMaterno = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    ApellidoPaterno = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    CantidadPrestada = table.Column<decimal>(type: "decimal(6,2)", nullable: false),
+                    Telefono = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    FechaPrestamo = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DiaCobro = table.Column<int>(type: "int", nullable: true),
+                    MesesPrestamo = table.Column<int>(type: "int", nullable: true),
+                    Intereses = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Prestamo", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Pago",
                 columns: table => new
@@ -46,6 +69,9 @@ namespace Microcreditos.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Pago");
+
+            migrationBuilder.DropTable(
+                name: "Prestamo");
         }
     }
 }

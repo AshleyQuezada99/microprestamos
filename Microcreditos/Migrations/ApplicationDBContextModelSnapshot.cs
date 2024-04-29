@@ -81,7 +81,7 @@ namespace Microcreditos.Migrations
                     b.Property<decimal>("CantidadPrestada")
                         .HasColumnType("decimal(6,2)");
 
-                    b.Property<int>("DiaCobro")
+                    b.Property<int?>("DiaCobro")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -89,13 +89,13 @@ namespace Microcreditos.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<DateTime>("FechaPrestamo")
+                    b.Property<DateTime?>("FechaPrestamo")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Intereses")
+                    b.Property<int?>("Intereses")
                         .HasColumnType("int");
 
-                    b.Property<int>("MesesPrestamo")
+                    b.Property<int?>("MesesPrestamo")
                         .HasColumnType("int");
 
                     b.Property<string>("Nombre")
@@ -104,7 +104,6 @@ namespace Microcreditos.Migrations
                         .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("Telefono")
-                        .IsRequired()
                         .HasMaxLength(32)
                         .HasColumnType("nvarchar(32)");
 
