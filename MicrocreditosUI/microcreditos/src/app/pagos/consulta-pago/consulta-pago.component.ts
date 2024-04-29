@@ -33,6 +33,7 @@ export class ConsultaPagoComponent implements OnInit {
       complete: () => {},
     });
   }
+
   eliminar(id: number): void {
     if (confirm('¿Estás seguro de que deseas eliminar este pago?')) {
       this.deletePago$(id).subscribe({

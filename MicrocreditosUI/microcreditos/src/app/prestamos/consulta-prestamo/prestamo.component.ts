@@ -23,6 +23,7 @@ export class PrestamoComponent implements OnInit {
   prestamoss: any[] = [];
   filtroTabla: string = '';
   statusFinal: string = '';
+  statusMessageAlert: string = '';
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -79,14 +80,23 @@ export class PrestamoComponent implements OnInit {
       });
   }
 
-  calcularMontoDebe(mesesPrestamo: any, intereses: any): number {
+  calcularMontoDebe(
+    mesesPrestamo: any,
+    intereses: any,
+    cantidadPrestada: any
+  ): number {
     const cantidadMesesDebe = mesesPrestamo;
-    const interesesPorMes = intereses;
-    return cantidadMesesDebe * interesesPorMes;
+    const interesesPorMes = intereses / 100;
+    const total = cantidadPrestada + cantidadMesesDebe * interesesPorMes;
+    return Number(total.toFixed(2));
   }
 
   calcularMontoPagado(prestamo: any): number {
     let montoPagado = 0;
+    let montoPagadoFinal = 0;
+    const interesDecimal = prestamo.intereses / 100;
+    const interesTotal = interesDecimal * prestamo.mesesPrestamo;
+
     if (prestamo.pagos && prestamo.pagos.length > 0) {
       prestamo.pagos.forEach((pago: any) => {
         if (pago.prestamoId === prestamo.id) {
@@ -94,12 +104,14 @@ export class PrestamoComponent implements OnInit {
         }
       });
     }
-
-    return montoPagado;
+    montoPagadoFinal = montoPagado + interesTotal;
+    return Number(montoPagadoFinal.toFixed(2));
   }
 
   calcularMontoFinal(prestamo: any): number {
-    const montoFinal = prestamo.cantidadPrestada * (1 + prestamo.intereses);
+    const interesDecimal = prestamo.intereses / 100;
+    const interesTotal = interesDecimal * prestamo.mesesPrestamo;
+    const montoFinal = prestamo.cantidadPrestada + interesTotal;
     return montoFinal;
   }
 
@@ -146,14 +158,23 @@ export class PrestamoComponent implements OnInit {
     this.router.navigate(['/actualizarPrestamos', prestamoId]);
   }
 
-  actualizarStatusPago(id: number, status: boolean): void {
+  actualizarStatusPago(id: number, statusValue: boolean): void {
     // Validar el valor del status según
-    this.statusFinal = status ? 'cancelar' : 'realizar';
+    if (statusValue == true) {
+      this.statusFinal = 'cancelar';
+      this.statusMessageAlert = 'cancelado';
+      statusValue = false;
+    } else {
+      this.statusFinal = 'realizar';
+      this.statusFinal = 'realizado';
+      statusValue = true;
+    }
+    console.log(statusValue);
 
     if (confirm(`¿Estás seguro de que deseas ${this.statusFinal} este pago?`)) {
       this.http
         .patch<any>(`http://localhost:5172/api/pago/update-status/${id}`, {
-          status: Boolean(status),
+          status: !!statusValue,
         })
         .pipe(
           delay(100000),

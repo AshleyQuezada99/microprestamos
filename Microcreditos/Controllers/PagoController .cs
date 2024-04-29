@@ -79,6 +79,7 @@ namespace Microcreditos.Controllers
             }
   
             _mapper.Map(prestamoDto, entity);
+            entity.Id = id;
 
             // Actualizar el préstamo en el repositorio
             await _repository.UpdatePago(entity);

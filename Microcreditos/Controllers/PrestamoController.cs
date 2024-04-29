@@ -70,7 +70,7 @@ namespace Microcreditos.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdatePrestamo(int id, PrestamoDto prestamoDto)
+        public async Task<ActionResult> UpdatePrestamo(PrestamoDto prestamoDto, int id)
         {
             var entity = await _repository.GetPrestamoById(id);
             if (entity == null)
@@ -79,6 +79,8 @@ namespace Microcreditos.Controllers
             }
   
             _mapper.Map(prestamoDto, entity);
+
+            entity.Id = id;
 
             // Actualizar el préstamo en el repositorio
             await _repository.UpdatePrestamo(entity);
