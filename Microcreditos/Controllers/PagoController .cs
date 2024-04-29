@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microcreditos.Dtos;
 using Microcreditos.Entities;
+using Microcreditos.Repository;
 using Microcreditos.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,7 +13,6 @@ namespace Microcreditos.Controllers
     {
         private readonly IPagoRepository _repository;
         private readonly IMapper _mapper;
-
         public PagoController(IPagoRepository repository, IMapper mapper)
         {
             _repository = repository;
@@ -86,6 +86,28 @@ namespace Microcreditos.Controllers
 
             return NoContent();
 
+        }
+
+        [HttpPatch("update-status/{id}")]
+        public async Task<IActionResult> UpdatePagoStatus(int id, [FromBody] bool status)
+        {
+            try
+            {
+                var pago = await _repository.GetPagoById(id);
+                if (pago == null)
+                {
+                    return NotFound();
+                }
+
+                pago.Status = status;
+                await _repository.UpdatePago(pago);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
     }
 }

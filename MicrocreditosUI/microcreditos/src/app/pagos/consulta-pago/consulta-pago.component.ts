@@ -9,17 +9,16 @@ import { Observable, catchError, delay, of } from 'rxjs';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './consulta-pago.component.html',
-  styleUrl: './consulta-pago.component.css'
+  styleUrl: './consulta-pago.component.css',
 })
 export class ConsultaPagoComponent implements OnInit {
-
-  title = "Historial de pagos";
+  title = 'Historial de pagos';
   pagos: any;
   showAlert: boolean = false;
   alertMessage: string = '';
   alertType: string = '';
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
     this.getPagos();
@@ -30,23 +29,29 @@ export class ConsultaPagoComponent implements OnInit {
       next: (response: any) => {
         this.pagos = response;
       },
-      error: error => console.log(error),
-      complete: () => { }
+      error: (error) => console.log(error),
+      complete: () => {},
     });
   }
   eliminar(id: number): void {
     if (confirm('¿Estás seguro de que deseas eliminar este pago?')) {
       this.deletePago$(id).subscribe({
         next: () => {
-          this.showAlertMessage('success', 'El pago se ha eliminado correctamente.');
+          this.showAlertMessage(
+            'success',
+            'El pago se ha eliminado correctamente.'
+          );
           setTimeout(() => {
             window.location.reload();
           }, 2000);
         },
         error: (error) => {
           console.error('Error al eliminar el pago:', error);
-          this.showAlertMessage('danger', 'Ha ocurrido un error al eliminar el pago. Por favor, inténtelo de nuevo.');
-        }
+          this.showAlertMessage(
+            'danger',
+            'Ha ocurrido un error al eliminar el pago. Por favor, inténtelo de nuevo.'
+          );
+        },
       });
     }
   }
@@ -56,18 +61,21 @@ export class ConsultaPagoComponent implements OnInit {
       delay(1000),
       catchError((error: any) => {
         console.error('Error al enviar la solicitud:', error);
-        this.showAlertMessage('danger', 'Ha ocurrido un error al eliminar el pago. Por favor, inténtelo de nuevo.');
+        this.showAlertMessage(
+          'danger',
+          'Ha ocurrido un error al eliminar el pago. Por favor, inténtelo de nuevo.'
+        );
         return of(null);
       })
     );
   }
+
   actualizar(pagoId: number): void {
     this.router.navigate(['/actualizarPagos', pagoId]);
   }
 
-
   showAlertMessage(type: string, message: string): void {
-    console.log("alerta hola");
+    console.log('alerta hola');
     this.alertType = type;
     this.alertMessage = message;
     this.showAlert = true;

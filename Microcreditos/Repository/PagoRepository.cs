@@ -15,50 +15,84 @@ namespace Microcreditos.Repository
 
         public async Task<Pago> CreatePago(Pago pago)
         {
-            if (pago == null)
+            try
             {
-                throw new ArgumentNullException(nameof(pago));
-            }
+                if (pago == null)
+                {
+                    throw new ArgumentNullException(nameof(pago));
+                }
 
-            await _dbContext.Pago.AddAsync(pago);
-            await _dbContext.SaveChangesAsync();
-            return pago;
+                await _dbContext.Pago.AddAsync(pago);
+                await _dbContext.SaveChangesAsync();
+                return pago;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            
         }
 
         public async Task<bool> DeletePago(int id)
         {
-            var deleteId = await _dbContext.Pago.FindAsync(id);
-            if (deleteId == null)
+            try
             {
-                throw new ArgumentException("The Id provided is not valid or was not found");
-            }
+                var deleteId = await _dbContext.Pago.FindAsync(id);
+                if (deleteId == null)
+                {
+                    throw new ArgumentException("The Id provided is not valid or was not found");
+                }
 
-            _dbContext.Pago.Remove(deleteId);
-            return true;
+                _dbContext.Pago.Remove(deleteId);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            
         }
 
         public async Task<Pago> GetPagoById(int id)
         {
-            var result = await _dbContext.Pago.FindAsync(id);
-
-            if (result == null)
+            try
             {
-                throw new Exception("The id was not found");
-            }
+                var result = await _dbContext.Pago.FindAsync(id);
 
-            return result;
+                if (result == null)
+                {
+                    throw new Exception("The id was not found");
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+           
         }
 
         public async Task<IEnumerable<Pago>> GetPagosByPrestamoId(int prestamoId)
         {
-            var result = await _dbContext.Pago.Where(x => x.PrestamoId == prestamoId).ToListAsync();
-
-            if (result.Count == 0)
+            try
             {
-                throw new ArgumentException("No se encontraron pagos con el PrestamoId especificado");
-            }
+                var result = await _dbContext.Pago.Where(x => x.PrestamoId == prestamoId).ToListAsync();
 
-            return result;
+                if (result.Count == 0)
+                {
+                    throw new ArgumentException("No se encontraron pagos con el PrestamoId especificado");
+                }
+
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+          
+
         }
 
         public async Task<IEnumerable<Pago>> GetPagos()
@@ -68,25 +102,60 @@ namespace Microcreditos.Repository
 
         public async Task<bool> SaveChanges()
         {
-            return (_dbContext.SaveChanges() >= 0);
+            try
+            {
+                return (_dbContext.SaveChanges() >= 0);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public async Task<bool> UpdatePago(Pago pago)
         {
-            if (pago == null)
+            try
             {
-                throw new ArgumentNullException(nameof(pago));
-            }
-            var updateId = _dbContext.Pago.Find(pago.Id);
-            if (updateId == null)
-            {
-                throw new ArgumentNullException("The id did not match with any record to update");
-            }
+                if (pago == null)
+                {
+                    throw new ArgumentNullException(nameof(pago));
+                }
+                var updateId = _dbContext.Pago.Find(pago.Id);
+                if (updateId == null)
+                {
+                    throw new ArgumentNullException("The id did not match with any record to update");
+                }
 
-            _dbContext.Pago.Update(pago);
-            await _dbContext.SaveChangesAsync();
-            return true;
+                _dbContext.Pago.Update(pago);
+                await _dbContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error updating payment status: " + ex.Message);
+            }
         }
+
+        public async Task<bool> UpdatePagoByStatus(int id, bool status)
+        {
+            try
+            {
+                var pago = await _dbContext.Pago.FindAsync(id);
+                if (pago == null)
+                {
+                    throw new ArgumentNullException(nameof(pago), "El pago no fue encontrado.");
+                }
+
+                pago.Status = status;
+                await _dbContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error updating payment status: " + ex.Message);
+            }
+        }
+
     }
 }
 
